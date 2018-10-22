@@ -4,16 +4,21 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.5",
+    "axios": "^0.18.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-router-dom": "^4.3.1"
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.10.0",
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
     "react-app-rewired": "^1.6.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "redux-devtools-extension": "^2.13.5"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -21,5 +26,6 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "client": "serve build"
-  }
+  },
+  "proxy":"http://localhost:8080/essm-maven-plus-react-server/api"
 }
