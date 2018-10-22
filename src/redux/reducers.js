@@ -3,11 +3,11 @@
  */
 
 import {combineReducers} from 'redux'
-
 import {
   AUTH_SUCCESS,
   ERROR_MSG
 } from './action-types'
+import {redirectTo} from '../utils/index'
 
 //user初始值，因为状态由redux管理了，所以这里要有初始值
 const initUser = {
@@ -25,7 +25,8 @@ function user(state = initUser, action) {
     case AUTH_SUCCESS:
       //return action.data
       //return {...state, ...action.data}
-      return {...action.data, redirectTo: '/'}
+      const {type, header} = action.data
+      return {...action.data, redirectTo: redirectTo(type, header)}
     case ERROR_MSG:
       console.log('-----', action.data)
       console.log('=====', {...state, msg: action.data})

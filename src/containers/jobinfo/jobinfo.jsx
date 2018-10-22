@@ -22,16 +22,27 @@ export default class JobInfo extends Component {
     })
   }
 
+  //Header组件选择头像后，更新状态，并显示已选择的头像
+  setHeader=(header)=>{
+    this.setState({
+      header
+    })
+  }
+
+  save=()=>{
+    console.log(this.state)
+  }
+
   render() {
     return (
       <div>
         <NavBar>Job个人信息</NavBar>
-        <Header/>
-        <InputItem placeholder={"求职岗位"} onChange={val=>this.handerChange('header',val)}/>
+        <Header setHeader={this.setHeader}/>
+        <InputItem placeholder={"求职岗位"} onChange={val=>this.handerChange('post',val)}/>
         <WhiteSpace/>
         <TextareaItem placeholder={"个人介绍"} rows={3} onChange={val=>this.handerChange('info',val)}/>
         <WhiteSpace/>
-        <Button type='primary'>保存</Button>
+        <Button type='primary' onClick={this.save}>保存</Button>
       </div>
     )
   }
