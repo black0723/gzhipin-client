@@ -5,6 +5,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.5",
     "axios": "^0.18.0",
+    "prop-types": "^15.6.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
@@ -27,5 +28,5 @@
     "eject": "react-scripts eject",
     "client": "serve build"
   },
-  "proxy":"http://localhost:8080/essm-maven-plus-react-server/api"
+  "proxy": "http://localhost:8080/essm-maven-plus-react-server/api"
 }

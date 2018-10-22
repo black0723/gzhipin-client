@@ -20,15 +20,15 @@ const initUser = {
 /*
 action = {type,data}
  */
-function user(state=initUser, action) {
+function user(state = initUser, action) {
   switch (action.type) {
     case AUTH_SUCCESS:
       //return action.data
       //return {...state, ...action.data}
       return {...action.data, redirectTo: '/'}
     case ERROR_MSG:
-      console.log('-----',action.data)
-      console.log('=====',{...state, msg: action.data})
+      console.log('-----', action.data)
+      console.log('=====', {...state, msg: action.data})
       return {...state, msg: action.data}
     default:
       return state
