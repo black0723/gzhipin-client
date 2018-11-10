@@ -3,3 +3,33 @@
   text-align: center;
   font-size: 18px;
 }
+
+.am-tab-bar{
+  /*使导航始终在底部*/
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: inherit; /*高度包裹内容*/
+}
+
+//标题在顶部固定
+.sticky-header{
+  /*使导航始终在底部*/
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* 消息文本居右 */
+#chat-page .chat-me .am-list-extra {
+  flex-basis: auto; /* 宽度包裹内容 */
+}
+
+#chat-page .chat-me .am-list-content {
+  padding-right: 15px;
+  text-align: right;
+}
+.am-list-body div:not(:last-child) .am-list-line{
+  border-bottom: 1px solid #F9F9F9 !important;
+}

@@ -41,7 +41,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.props.user)
+    console.log('login render() this.props.user ',this.props.user)
     let {msg, redirectTo} = this.props.user1
 
     if (redirectTo) {
@@ -51,7 +51,7 @@ class Login extends Component {
 
     return (
       <div>
-        <NavBar>硅谷直聘</NavBar>
+        <NavBar>法律咨询服务平台</NavBar>
         <Logo/>
         <WingBlank>
           <List>

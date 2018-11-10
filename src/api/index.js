@@ -14,3 +14,25 @@ export const reqLogin=({username,password})=>ajax('/login',{username,password},'
 
 //更新用户接口
 export const reqUpdateUser=(user)=>ajax('/savemyinfo',user,'POST')
+
+//根据cookie获取用户接口
+export const reqUser=()=>ajax('/user')
+
+//根据用户类型，获取用户列表
+export const reqUserList=(usertype)=>ajax('/getuserdata',{usertype})
+
+//获取当前用户的聊天消息列表
+export const reqChatMsgList=()=>ajax('/getmsglist')
+
+//修改指定消息为已读
+export const reqReadMsg=(fromid)=>ajax('readmsg',{fromid},'POST')
+
+/*
+前台的编写流程
+1.api
+2.redux
+  1) action-type
+  2)redux
+  3)action
+3.组件
+ */

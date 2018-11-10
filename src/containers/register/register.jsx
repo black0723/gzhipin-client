@@ -10,7 +10,6 @@ import {
   WhiteSpace,
   Radio,
   Button,
-  Modal
 } from 'antd-mobile'
 
 /*
@@ -62,14 +61,14 @@ class Register extends Component {
 
   render() {
     let {msg, redirectTo} = this.props.user
-    console.log(this.props.user)
+    console.log('register render()',this.props.user)
     if (redirectTo) {
       //重定向到指定的路由
       return <Redirect to={redirectTo}/>
     }
     return (
       <div>
-        <NavBar>硅谷直聘</NavBar>
+        <NavBar>法律咨询服务平台</NavBar>
         <Logo/>
         <WingBlank>
           <List>
@@ -84,12 +83,12 @@ class Register extends Component {
             <WhiteSpace/>
             <ListItem>
               <span>用户类型</span>
-              &nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Radio checked={this.state.usertype === 'job'}
-                     onChange={(o) => this.changeHandler('usertype', 'job')}>求职者</Radio>
+                     onChange={(o) => this.changeHandler('usertype', 'job')}>顾客</Radio>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <Radio checked={this.state.usertype === 'boss'}
-                     onChange={(o) => this.changeHandler('usertype', 'boss')}>老板</Radio>
+                     onChange={(o) => this.changeHandler('usertype', 'boss')}>律师</Radio>
             </ListItem>
             <WhiteSpace/>
             <Button type='primary' onClick={this.register}>注册</Button>
