@@ -3,10 +3,11 @@
  */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {NavBar, List, InputItem, Grid} from 'antd-mobile'
+import {NavBar, List, InputItem, Grid, Icon} from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim'
 
 //异步发送消息
-import {sendMsg} from '../../redux/actions'
+import {sendMsg, readMsg} from '../../redux/actions'
 
 class Chat extends Component {
 
@@ -42,12 +43,36 @@ class Chat extends Component {
     const emojis = [
       '😀', '😁', '😂', '🤣', '😃', '😄', '😅', '😆',
       '😉', '😊', '😋', '😎', '😍', '😘', '😗', '😙',
-      '😚','☺','🙂','🤗','🤔','😐','😑','😶',
-      '🙄','😏','😣','😥','😮','🤐','😯','😪',
-      '😫','😴','😌','😛','😜','😝','🤤','😒',  //最后一个是 Unamused Face
+      '😚', '☺', '🙂', '🤗', '🤔', '😐', '😑', '😶',
+      '🙄', '😏', '😣', '😥', '😮', '🤐', '😯', '😪',
+      '😫', '😴', '😌', '😛', '😜', '😝', '🤤', '😒',  //最后一个是 Unamused Face
     ]
     //Grid表情格子需要的格式
     this.emojis = emojis.map(value => ({text: value}))
+  }
+
+  componentDidMount() {
+    //初始显示列表
+    window.scrollTo(0, document.body.scrollHeight)
+    //发请求，更新(谁的)未读消息数量
+    //如果在这里更新未读消息，那么如果先进去，再发消息，就会有未读,
+    //应该在componentWillUnmount()阅读消息
+    const fromId = this.props.match.params.userid  //接收消息方，从URL的参数中取
+    const toId = this.props.user.id //我的id
+    this.props.readMsg(fromId, toId)
+  }
+
+  componentDidUpdate() {
+    //更新列表显示
+    window.scrollTo(0, document.body.scrollHeight)
+  }
+
+  //死亡之前
+  componentWillUnmount() {
+    //如果在这里更新未读消息，
+    const fromId = this.props.match.params.userid  //接收消息方，从URL的参数中取
+    const toId = this.props.user.id //我的id
+    this.props.readMsg(fromId, toId)
   }
 
   //表情显示隐藏
@@ -89,27 +114,35 @@ class Chat extends Component {
 
     return (
       <div id='chat-page'>
-        <NavBar>张三</NavBar>
-        <List>
-          {
-            msgs.map((msg, index) => {
-              if (meId == msg.toid) {
-                /*别人发个我的*/
-                return (
-                  <List.Item key={index} thumb={targetIcon}>
-                    {msg.content}
-                  </List.Item>
-                )
-              } else {
-                /*我发个别人的*/
-                return (
-                  <List.Item key={index} className={'chat-me'} extra={'我'}>
-                    {msg.content}
-                  </List.Item>
-                )
-              }
-            })
-          }
+        <NavBar
+          icon={<Icon type={'left'}/>}
+          onLeftClick={() => this.props.history.goBack()}
+          className={'sticky-header'}>
+          {users[`userid_${targetId}`].username}
+        </NavBar>
+        <List style={{marginBottom: 46, marginTop: 45}}>
+          {/*alpha left right top bottom scale scaleBig scaleX scaleY*/}
+          <QueueAnim type={'alpha'} delay={100}>
+            {
+              msgs.map((msg, index) => {
+                if (meId == msg.toid) {
+                  /*别人发个我的*/
+                  return (
+                    <List.Item key={index} thumb={targetIcon}>
+                      {msg.content}
+                    </List.Item>
+                  )
+                } else {
+                  /*我发个别人的*/
+                  return (
+                    <List.Item key={index} className={'chat-me'} extra={'我'}>
+                      {msg.content}
+                    </List.Item>
+                  )
+                }
+              })
+            }
+          </QueueAnim>
         </List>
 
         <div className='am-tab-bar'>
@@ -151,5 +184,5 @@ export default connect(
   state => ({
     user: state.user,
     chat: state.chat
-  }), {sendMsg}
+  }), {sendMsg, readMsg}
 )(Chat)

@@ -25,7 +25,7 @@ export const reqUserList=(usertype)=>ajax('/getuserdata',{usertype})
 export const reqChatMsgList=()=>ajax('/getmsglist')
 
 //修改指定消息为已读
-export const reqReadMsg=(fromid)=>ajax('readmsg',{fromid},'POST')
+  export const reqReadMsg=(fromid)=>ajax('/readmsg',{fromid},'POST')
 
 /*
 前台的编写流程

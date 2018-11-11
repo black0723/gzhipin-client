@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import {Card, WingBlank, WhiteSpace} from 'antd-mobile'
 //处理非路由组件引用不到路由组件的属性
 import {withRouter} from 'react-router-dom'
+import QueueAnim from 'rc-queue-anim'
 
 const Header = Card.Header
 const Body = Card.Body
@@ -21,6 +22,8 @@ class UserList extends Component {
 
     return (
       <WingBlank style={{marginBottom:55,marginTop:45}}>
+        {/*alpha left right top bottom scale scaleBig scaleX scaleY*/}
+        <QueueAnim type={'scale'} delay={100}>
         {
           userList.map((user,index) => (
             <div key={index}>
@@ -55,6 +58,7 @@ class UserList extends Component {
             </div>
           ))
         }
+        </QueueAnim>
       </WingBlank>
     )
   }

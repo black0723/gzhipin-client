@@ -9,7 +9,8 @@ import {
   RESET_USER,
   RECEIVE_USER_LIST,
   RECEIVE_MSG_LIST,
-  RECEIVE_MSG
+  RECEIVE_MSG,
+  MSG_READ
 } from './action-types'
 import {redirectTo} from '../utils/index'
 
@@ -76,18 +77,42 @@ const initChat = {
 function chat(state = initChat, action) {
   switch (action.type) {
     case RECEIVE_MSG_LIST:  //data {users:{},chatMsgs}
-      const {users, chatMsgs} = action.data
+      const {users, chatMsgs, userid} = action.data
       return {
         users,
         chatMsgs,
-        unReadCount: 0
+        //通过累加，计算未读消息的总数量
+        unReadCount: chatMsgs.reduce((pre, msg) => {
+          if (msg.toid == userid && msg.isread == 'false') {
+            return pre + 1
+          } else {
+            return pre
+          }
+        }, 0)
       }
     case RECEIVE_MSG:  //data :chatMsg
-      const chatMsg = action.data
+      const {chatMsg} = action.data
+      console.log('state.unReadCount=', state.unReadCount)
       return {
         users: state.users,
         chatMsgs: [...state.chatMsgs, chatMsg],  //合并数组（新消息和旧消息）
-        unReadCount: 0
+        //原来的数量上加0/1
+        unReadCount: state.unReadCount + ((chatMsg.toid == action.data.userid && chatMsg.isread == 'false') ? 1 : 0)
+      }
+    case MSG_READ: //阅读消息，data:{count,from to}
+      const {count, fromid, toid} = action.data
+      return {
+        users: state.users,
+        chatMsgs: state.chatMsgs.map(msg => {
+          //修改chatMsgs里的对应的数据为已读
+          if (fromid == msg.fromid && toid == msg.toid && msg.isread == 'false') {
+            return {...msg, isread: 'true'}
+          } else {
+            return msg
+          }
+        }),
+        //原来的数量上减去已读的
+        unReadCount: state.unReadCount - count
       }
     default:
       return state

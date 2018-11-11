@@ -80,7 +80,7 @@ class Main extends Component {
       return <Redirect to={'/login'}/>
     }
     //如果有，读取redux中的user
-    const {user} = this.props
+    const {user, unReadCount} = this.props
     //如果user中没有id，返回null（不做任何显示）
     console.log('读取redux中的user = ', user)
     //debugger
@@ -127,14 +127,17 @@ class Main extends Component {
           <Route path={"/chat/:userid"} component={Chat}/>
           <Route component={NotFound}/>
         </Switch>
-        {curentNav ? <NavFooter navList={navList}/> : null}
+        {curentNav ? <NavFooter navList={navList} unReadCount={unReadCount}/> : null}
       </div>
     );
   }
 }
 
 export default connect(
-  state => ({user: state.user})
+  state => ({
+    user: state.user,
+    unReadCount: state.chat.unReadCount
+  })
   , {getUser}
 )(Main)
 

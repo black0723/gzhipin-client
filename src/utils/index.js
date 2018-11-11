@@ -14,9 +14,9 @@
 export function redirectTo(type, header) {
   let path = '';
   if (type === 'boss') {
-    path = '/boss'
-  } else {
     path = '/job'
+  } else {
+    path = '/boss'
   }
   if (!header) {
     path += 'info'

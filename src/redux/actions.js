@@ -8,7 +8,8 @@ import {
   RESET_USER,
   RECEIVE_USER_LIST,
   RECEIVE_MSG_LIST,
-  RECEIVE_MSG
+  RECEIVE_MSG,
+  MSG_READ
 } from './action-types'
 
 import {
@@ -36,10 +37,13 @@ export const resetUser = (msg) => ({type: RESET_USER, data: msg})
 export const receiveUserList = (userList) => ({type: RECEIVE_USER_LIST, data: userList})
 
 //接受所有的消息列表的同步action
-export const receiveMsgList = ({users, chatMsgs}) => ({type: RECEIVE_MSG_LIST, data: {users, chatMsgs}})
+export const receiveMsgList = ({users, chatMsgs, userid}) => ({type: RECEIVE_MSG_LIST, data: {users, chatMsgs, userid}})
 
 //接收1条消息的同步action
-export const receiveMsg = (chatMsgs) => ({type: RECEIVE_MSG, data: chatMsgs})
+export const receiveMsg = (chatMsg, userid) => ({type: RECEIVE_MSG, data: {chatMsg, userid}})
+
+//阅读消息的同步action
+export const msgRead = ({count, fromid, toid}) => ({type: MSG_READ, data: {count, fromid, toid}})
 
 /*
 1.异步的用户注册的action
@@ -161,7 +165,7 @@ async function getChatMsgList(dispatch, userid) {
   if (result.code === 0) {
     const {users, chatMsgs} = result.data //data{users:{},chatMsgs}
     //分发同步action
-    dispatch(receiveMsgList({users, chatMsgs}))
+    dispatch(receiveMsgList({users, chatMsgs, userid}))
   }
 }
 
@@ -179,6 +183,20 @@ data:{formid,toid,content}
 export const sendMsg = (data) => {
   return dispatch => {
     initSocketIO(data, dispatch, data.fromid)
+  }
+}
+
+/*
+更新消息的阅读状态
+ */
+export const readMsg = (fromid, toid) => {
+  return async dispatch => {
+    const resp = await reqReadMsg(fromid)
+    const result = resp.data
+    if (result.code === 0) {
+      const count = result.data  // 后台返回的，更新的数量
+     dispatch(msgRead({count, fromid, toid}))
+    }
   }
 }
 
@@ -233,7 +251,7 @@ function initReceiveSocketIO(dispatch, userid) {
     //debugger
     if (chatMsgJson.fromid == userid || chatMsgJson.toid == userid) {
       //分发同步action，保持消息到redux中
-      dispatch(receiveMsg(chatMsgJson))
+      dispatch(receiveMsg(chatMsgJson, userid))
     }
   }
 

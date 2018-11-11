@@ -21,3 +21,5 @@ export const RECEIVE_USER_LIST = 'receive_user_list'
 export const RECEIVE_MSG_LIST = 'receive_msg_list' //接收的所有的消息的列表
 //接收一条消息
 export const RECEIVE_MSG = 'receive_msg'
+//阅读一条消息
+export const MSG_READ = 'msg_read'
