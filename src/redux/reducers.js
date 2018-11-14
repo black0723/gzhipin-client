@@ -10,7 +10,9 @@ import {
   RECEIVE_USER_LIST,
   RECEIVE_MSG_LIST,
   RECEIVE_MSG,
-  MSG_READ
+  MSG_READ,
+  RECEIVE_NEWS,
+  RECEIVE_LAWS
 } from './action-types'
 import {redirectTo} from '../utils/index'
 
@@ -25,8 +27,8 @@ const initUser = {
 }
 
 /*
+1.用户信息
   action = {type,data}
-  1.用户信息
  */
 function user(state = initUser, action) {
   switch (action.type) {
@@ -52,8 +54,8 @@ function user(state = initUser, action) {
 const initUserList = []
 
 /*
-产生userList状态的redux
 2.用户列表数组
+产生userList状态的redux
  */
 function userList(state = initUserList, action) {
   switch (action.type) {
@@ -64,7 +66,9 @@ function userList(state = initUserList, action) {
   }
 }
 
-//聊天列表初始列表
+/*
+3.聊天列表初始列表
+ */
 const initChat = {
   users: {}, //所有用户，属性名是userid,属性值{username,header}
   chatMsgs: [], //用户的收，发 消息
@@ -120,11 +124,29 @@ function chat(state = initChat, action) {
 
 }
 
+/*
+4.法律新闻数据初始值
+ */
+const initNews = []
+
+/*
+4.法律新闻数据
+ */
+function news(state = initNews, action) {
+  switch (action.type) {
+    case RECEIVE_NEWS:
+      return action.data
+    default:
+      return state
+  }
+}
+
 //向外暴露
 export default combineReducers({
   user,
   userList,
-  chat
+  chat,
+  news
 })
 
 /*

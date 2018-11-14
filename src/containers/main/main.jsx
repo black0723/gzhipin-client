@@ -16,6 +16,8 @@ import Personal from '../personal/personal'
 import NotFound from '../../components/not-found/not-found'
 import NavFooter from '../../components/nav-footer/nav-footer'
 import Chat from '../chat/chat'
+import News from '../../containers/news/news'
+import Laws from '../../containers/laws/laws'
 
 import {redirectTo} from '../../utils'
 import {getUser} from '../../redux/actions'
@@ -24,18 +26,32 @@ class Main extends Component {
   //不加static 给组件对象添加属性，加static给组件类添加
   navList = [
     {
-      path: '/job', //
+      path: '/boss', //
       component: Job,
       title: '顾客列表',
       icon: 'dashen',
       text: '顾客',
     },
     {
-      path: '/boss', //
+      path: '/job', //
       component: Boss,
       title: '律师列表',
       icon: 'laoban',
       text: '律师',
+    },
+    {
+      path: '/laws', //
+      component: Laws,
+      title: '法律法规速查',
+      icon: 'laws',
+      text: '法规',
+    },
+    {
+      path: '/news', //
+      component: News,
+      title: '法律新闻',
+      icon: 'news',
+      text: '新闻',
     },
     {
       path: '/message', //
@@ -83,7 +99,6 @@ class Main extends Component {
     const {user, unReadCount} = this.props
     //如果user中没有id，返回null（不做任何显示）
     console.log('读取redux中的user = ', user)
-    //debugger
     if (!user.id) {
       return null
     } else {

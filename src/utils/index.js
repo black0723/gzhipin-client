@@ -14,10 +14,13 @@
 export function redirectTo(type, header) {
   let path = '';
   if (type === 'boss') {
-    path = '/job'
-  } else {
     path = '/boss'
+  } else if(type ==='job') {
+    path = '/job'
+  }else{
+    console.log('path 未匹配')
   }
+
   if (!header) {
     path += 'info'
   }

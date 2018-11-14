@@ -23,3 +23,7 @@ export const RECEIVE_MSG_LIST = 'receive_msg_list' //接收的所有的消息的
 export const RECEIVE_MSG = 'receive_msg'
 //阅读一条消息
 export const MSG_READ = 'msg_read'
+
+//法规，新闻
+export const RECEIVE_NEWS = 'receive_news'
+export const RECEIVE_LAWS = 'receive_laws'

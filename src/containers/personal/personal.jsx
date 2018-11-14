@@ -35,7 +35,7 @@ class Personal extends Component {
 
   render() {
     const {
-      header, usertype, username, company,exampletype,
+      header, usertype, username, company,category1,category2,
       post, winrate, salary, category, example, info
     } = this.props.user
     return (
@@ -51,11 +51,14 @@ class Personal extends Component {
               <Brief>收费要求: {salary}</Brief>
               <Brief>律师类型: {category}</Brief>
               {example ? <Brief>胜诉案例: {example}</Brief> : null}
+              <Brief>案例类型: {category1}</Brief>
+              <Brief>案例类型: {category2}</Brief>
               <Brief>个人简介: {info}</Brief>
             </Item>
             :
             <Item multipleLine>
-              <Brief>案例类型: {exampletype}</Brief>
+              <Brief>案例类型: {category1}</Brief>
+              <Brief>案例类型: {category2}</Brief>
               <Brief>个人简介: {info}</Brief>
             </Item>
           }

@@ -9,7 +9,9 @@ import {
   RECEIVE_USER_LIST,
   RECEIVE_MSG_LIST,
   RECEIVE_MSG,
-  MSG_READ
+  MSG_READ,
+  RECEIVE_NEWS,
+  RECEIVE_LAWS
 } from './action-types'
 
 import {
@@ -19,7 +21,9 @@ import {
   reqUser,
   reqUserList,
   reqChatMsgList,
-  reqReadMsg
+  reqReadMsg,
+  reqGetNews,
+  reqQueryLaws
 } from '../api/index'
 
 import {getWebsocket} from '../utils/socketUtil'
@@ -44,6 +48,10 @@ export const receiveMsg = (chatMsg, userid) => ({type: RECEIVE_MSG, data: {chatM
 
 //阅读消息的同步action
 export const msgRead = ({count, fromid, toid}) => ({type: MSG_READ, data: {count, fromid, toid}})
+
+//获取新闻
+const getNews = (news) => ({type: RECEIVE_NEWS, data: news})
+
 
 /*
 1.异步的用户注册的action
@@ -175,7 +183,6 @@ async function getChatMsgList(dispatch, userid) {
 2.创建对象之后，保存对象
  */
 
-
 /*
 发送消息的action,使用socket发请求
 data:{formid,toid,content}
@@ -195,7 +202,7 @@ export const readMsg = (fromid, toid) => {
     const result = resp.data
     if (result.code === 0) {
       const count = result.data  // 后台返回的，更新的数量
-     dispatch(msgRead({count, fromid, toid}))
+      dispatch(msgRead({count, fromid, toid}))
     }
   }
 }
@@ -258,5 +265,19 @@ function initReceiveSocketIO(dispatch, userid) {
   //连接关闭的回调方法
   websocket.onclose = function () {
     console.log("测试WebSocket连接关闭")
+  }
+}
+
+/*
+获取法律新闻
+ */
+export const getNewsList = () => {
+  return async dispatch => {
+    const resq = await reqGetNews()
+    const result = resq.data
+    if (result.code === 0) {
+      //分发同步action
+      dispatch(getNews(result.data))
+    }
   }
 }
