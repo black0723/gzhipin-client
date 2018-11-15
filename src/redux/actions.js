@@ -11,7 +11,7 @@ import {
   RECEIVE_MSG,
   MSG_READ,
   RECEIVE_NEWS,
-  RECEIVE_LAWS
+  RECEIVE_LAWS, RECEIVE_NEWS_ONE, RECEIVE_LAWS_ONE
 } from './action-types'
 
 import {
@@ -23,7 +23,9 @@ import {
   reqChatMsgList,
   reqReadMsg,
   reqGetNews,
-  reqQueryLaws
+  reqQueryLaws,
+  reqGetNewsDetail,
+  reqQueryLawsDetail
 } from '../api/index'
 
 import {getWebsocket} from '../utils/socketUtil'
@@ -51,7 +53,12 @@ export const msgRead = ({count, fromid, toid}) => ({type: MSG_READ, data: {count
 
 //获取新闻
 const getNews = (news) => ({type: RECEIVE_NEWS, data: news})
-
+//查询法规
+const queryLaws = (laws)=>({type:RECEIVE_LAWS,data:laws})
+//获取新闻
+const getNewsDetail = (newsOne) => ({type: RECEIVE_NEWS_ONE, data: newsOne})
+//查询法规
+const queryLawsDetail = (lawsOne)=>({type:RECEIVE_LAWS_ONE,data:lawsOne})
 
 /*
 1.异步的用户注册的action
@@ -269,7 +276,7 @@ function initReceiveSocketIO(dispatch, userid) {
 }
 
 /*
-获取法律新闻
+获取法律新闻列表
  */
 export const getNewsList = () => {
   return async dispatch => {
@@ -278,6 +285,45 @@ export const getNewsList = () => {
     if (result.code === 0) {
       //分发同步action
       dispatch(getNews(result.data))
+    }
+  }
+}
+
+/*
+查询法规列表
+ */
+export const queryLawsList=(keyword)=>{
+  return async dispatch =>{
+    const resq = await reqQueryLaws(keyword)
+    const result = resq.data
+    if(result.code===0){
+      dispatch(queryLaws(result.data))
+    }
+  }
+}
+
+/*
+查询新闻详情
+ */
+export const queryNewsOne=(id)=>{
+  return async dispatch =>{
+    const resq = await reqGetNewsDetail(id)
+    const result = resq.data
+    if(result.code===0){
+      dispatch(getNewsDetail(result.data))
+    }
+  }
+}
+
+/*
+查询法规详情
+ */
+export const queryLawsOne=(id)=>{
+  return async dispatch =>{
+    const resq = await reqQueryLawsDetail(id)
+    const result = resq.data
+    if(result.code===0){
+      dispatch(queryLawsDetail(result.data))
     }
   }
 }

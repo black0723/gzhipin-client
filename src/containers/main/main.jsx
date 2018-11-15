@@ -18,6 +18,8 @@ import NavFooter from '../../components/nav-footer/nav-footer'
 import Chat from '../chat/chat'
 import News from '../../containers/news/news'
 import Laws from '../../containers/laws/laws'
+import NewsDetail from '../../containers/news/newsdetail'
+import LawsDetail from '../../containers/laws/lawsdetail'
 
 import {redirectTo} from '../../utils'
 import {getUser} from '../../redux/actions'
@@ -118,6 +120,14 @@ class Main extends Component {
     const path = this.props.location.pathname
     //得到当前的nav可能不存在
     const curentNav = navList.find(nav => nav.path === path)
+    let isFooter= false
+    if(path.startsWith('/newsdetail')){
+      isFooter=true
+    }
+    if(path.startsWith('/lawsdetail')){
+      isFooter=true
+    }
+
     //判断哪个路由被隐藏
     if (curentNav) {
       //决定哪个路由需要隐藏
@@ -140,9 +150,11 @@ class Main extends Component {
           <Route path={"/jobinfo"} component={JobInfo}/>
           {/*路径  /chat/userid */}
           <Route path={"/chat/:userid"} component={Chat}/>
+          <Route path={"/newsdetail/:newsid"} component={NewsDetail}/>
+          <Route path={"/lawsdetail/:lawsid"} component={LawsDetail}/>
           <Route component={NotFound}/>
         </Switch>
-        {curentNav ? <NavFooter navList={navList} unReadCount={unReadCount}/> : null}
+        {(curentNav || isFooter)? <NavFooter navList={navList} unReadCount={unReadCount}/> : null}
       </div>
     );
   }

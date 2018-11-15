@@ -27,3 +27,5 @@ export const MSG_READ = 'msg_read'
 //法规，新闻
 export const RECEIVE_NEWS = 'receive_news'
 export const RECEIVE_LAWS = 'receive_laws'
+export const RECEIVE_NEWS_ONE = 'receive_news_one'
+export const RECEIVE_LAWS_ONE = 'receive_laws_one'

@@ -32,6 +32,12 @@ export const reqGetNews = () => ajax('/getnews')
 //根据关键词查询法规
 export const reqQueryLaws = (keyword) => ajax('/querylaws', {keyword}, 'POST')
 
+//获取法律新闻详情
+export const reqGetNewsDetail = (id) => ajax('/getnewsdetail',{id})
+//根据关键词查询法规
+export const reqQueryLawsDetail = (id) => ajax('/querylawsdetail', {id})
+
+
 /*
 前台的编写流程
 1.api

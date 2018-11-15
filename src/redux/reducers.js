@@ -12,7 +12,9 @@ import {
   RECEIVE_MSG,
   MSG_READ,
   RECEIVE_NEWS,
-  RECEIVE_LAWS
+  RECEIVE_LAWS,
+  RECEIVE_NEWS_ONE,
+  RECEIVE_LAWS_ONE
 } from './action-types'
 import {redirectTo} from '../utils/index'
 
@@ -141,12 +143,65 @@ function news(state = initNews, action) {
   }
 }
 
+/*
+5.法律法规初始值
+ */
+const initLaws = []
+
+/*
+5.查询法律法规
+ */
+function laws(state = initLaws, action) {
+  switch (action.type) {
+    case RECEIVE_LAWS:
+      return action.data
+    default:
+      return state
+  }
+}
+
+/*
+6.法律新闻详情初始值
+ */
+const initNewsOne = {}
+
+/*
+6.法律新闻详情初始值
+ */
+function newsOne(state = initNewsOne, action) {
+  switch (action.type) {
+    case RECEIVE_NEWS_ONE:
+      return action.data
+    default:
+      return state
+  }
+}
+
+/*
+7.法律法规数据初始值
+ */
+const initLawsOne = {}
+
+/*
+7.查询法律法规详情
+ */
+function lawsOne(state = initLawsOne, action) {
+  switch (action.type) {
+    case RECEIVE_LAWS_ONE:
+      return action.data
+    default:
+      return state
+  }
+}
 //向外暴露
 export default combineReducers({
   user,
   userList,
   chat,
-  news
+  news,
+  laws,
+  newsOne,
+  lawsOne
 })
 
 /*
