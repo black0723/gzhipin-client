@@ -25,7 +25,9 @@ class BossInfo extends Component {
     winrate: '',
     salary: '',
     category: '主任',
-    example: ''
+    example: '',
+    sValue: ['一般民事案件'],
+    sValue2: ['经济债务咨询'],
   }
 
   //更新头像，交给header组件调用
@@ -40,7 +42,9 @@ class BossInfo extends Component {
   }
 
   save = () => {
-    console.log(this.state)
+    const user = this.state
+    user.category1=user.sValue[0]
+    user.category2=user.sValue2[0]
     this.props.updateUser(this.state)
   }
 

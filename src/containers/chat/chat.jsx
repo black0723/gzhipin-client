@@ -106,10 +106,21 @@ class Chat extends Component {
 
     //3.对chatMsgs聊天信息进行过滤
     //msgs 里包含 我发给别人的消息，和别人发给我的消息
+    const msgsfrom = chatMsgs.filter(msg => (msg.fromid == targetId))
     const msgs = chatMsgs.filter(msg => (msg.chat_id === chatId1 || msg.chat_id === chatId2))
-
+    if (msgsfrom.length == 0 && user.usertype == 'job') {
+      msgs.push({
+        fromid: targetId,
+        toid: meId,
+        chat_id: [meId, targetId].sort().join('_'),
+        content: `亲爱的${users[`userid_${meId}`].username}~_~！请输入案情经过和维权诉求并且留下您的联系方式。`,
+        isread: true,
+        create_time: new Date().getTime()
+      })
+    }
     //4.得到目标用户的头像
-    const targetHeader = users[`userid_${targetId}`].header
+    const curUser = users[`userid_${targetId}`]
+    const targetHeader = curUser ? curUser.header : null
     const targetIcon = targetHeader ? require(`../../assets/images/headers/${targetHeader}.png`) : null
 
     return (
@@ -128,14 +139,23 @@ class Chat extends Component {
                 if (meId == msg.toid) {
                   /*别人发个我的*/
                   return (
-                    <List.Item key={index} thumb={targetIcon}>
+                    <List.Item
+                      key={index}
+                      multipleLine
+                      wrap
+                      thumb={targetIcon}>
                       {msg.content}
                     </List.Item>
                   )
                 } else {
                   /*我发个别人的*/
                   return (
-                    <List.Item key={index} className={'chat-me'} extra={'我'}>
+                    <List.Item
+                      key={index}
+                      multipleLine
+                      wrap
+                      className={'chat-me'}
+                      extra={'我'}>
                       {msg.content}
                     </List.Item>
                   )

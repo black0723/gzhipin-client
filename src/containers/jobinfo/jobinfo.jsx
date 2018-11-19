@@ -39,7 +39,6 @@ class JobInfo extends Component {
   }
 
   save = () => {
-    console.log(this.state)
     const user = this.state
     user.category1=user.sValue[0]
     user.category2=user.sValue2[0]

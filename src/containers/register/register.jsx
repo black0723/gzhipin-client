@@ -61,7 +61,7 @@ class Register extends Component {
 
   render() {
     let {msg, redirectTo} = this.props.user
-    console.log('register render()',this.props.user)
+    console.log('register render()', this.props.user)
     if (redirectTo) {
       //重定向到指定的路由
       return <Redirect to={redirectTo}/>
@@ -70,33 +70,31 @@ class Register extends Component {
       <div>
         <NavBar>法律咨询服务平台</NavBar>
         <Logo/>
-        <WingBlank>
-          <List>
-            {msg ? <div className={"error-msg"}>{msg}</div> : null}
-            <InputItem placeholder={"请输入用户名"} onChange={(o) => this.changeHandler('username', o)}>用户名</InputItem>
-            <WhiteSpace/>
-            <InputItem placeholder={"请输入密码"} type='password'
-                       onChange={(o) => this.changeHandler('password', o)}>密&nbsp;&nbsp;&nbsp;码</InputItem>
-            <WhiteSpace/>
-            <InputItem placeholder={"请输入确认密码"} type='password'
-                       onChange={(o) => this.changeHandler('password2', o)}>确认密码</InputItem>
-            <WhiteSpace/>
-            <ListItem>
-              <span>用户类型</span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Radio checked={this.state.usertype === 'job'}
-                     onChange={(o) => this.changeHandler('usertype', 'job')}>顾客</Radio>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <Radio checked={this.state.usertype === 'boss'}
-                     onChange={(o) => this.changeHandler('usertype', 'boss')}>律师</Radio>
-            </ListItem>
-            <WhiteSpace/>
-            <Button type='primary' onClick={this.register}>注册</Button>
-            <WhiteSpace/>
-            <Button onClick={this.toLogin}>已有账号</Button>
-            <WhiteSpace/>
-          </List>
-        </WingBlank>
+        <List>
+          {msg ? <div className={"error-msg"}>{msg}</div> : null}
+          <InputItem placeholder={"请输入用户名"} onChange={(o) => this.changeHandler('username', o)}>用户名</InputItem>
+          <WhiteSpace/>
+          <InputItem placeholder={"请输入密码"} type='password'
+                     onChange={(o) => this.changeHandler('password', o)}>密&nbsp;&nbsp;&nbsp;码</InputItem>
+          <WhiteSpace/>
+          <InputItem placeholder={"请输入确认密码"} type='password'
+                     onChange={(o) => this.changeHandler('password2', o)}>确认密码</InputItem>
+          <WhiteSpace/>
+          <ListItem>
+            <span>用户类型</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Radio checked={this.state.usertype === 'job'}
+                   onChange={(o) => this.changeHandler('usertype', 'job')}>顾客</Radio>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Radio checked={this.state.usertype === 'boss'}
+                   onChange={(o) => this.changeHandler('usertype', 'boss')}>律师</Radio>
+          </ListItem>
+          <WhiteSpace/>
+          <Button type='primary' onClick={this.register}>注册</Button>
+          <WhiteSpace/>
+          <Button onClick={this.toLogin}>已有账号</Button>
+          <WhiteSpace/>
+        </List>
       </div>
     );
   }
