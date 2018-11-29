@@ -36,7 +36,7 @@ class Personal extends Component {
   render() {
     const {
       header, usertype, username, company,category1,category2,
-      post, winrate, salary, category, example, info
+      post, winrate, salary, category, example, info,id
     } = this.props.user
     return (
       <div style={{marginBottom:55,marginTop:45}}>
@@ -45,7 +45,12 @@ class Personal extends Component {
                 title={`${username}(${usertype==='boss'?'律师':'顾客'})`} message={company}/>
         <List renderHeader={() => '相关信息'}>
           {usertype==='boss'?
-            <Item multipleLine>
+            <Item
+              arrow="horizontal"
+              onClick={() => {
+                this.props.history.push(`/personalinfoboss`)
+              }}
+              multipleLine>
               <Brief>律师证信息: {post}</Brief>
               <Brief>律师胜率: {winrate}</Brief>
               <Brief>收费要求: {salary}</Brief>
@@ -56,7 +61,12 @@ class Personal extends Component {
               <Brief>个人简介: {info}</Brief>
             </Item>
             :
-            <Item multipleLine>
+            <Item
+              arrow="horizontal"
+              onClick={() => {
+                this.props.history.push(`/personalinfojob`)
+              }}
+              multipleLine>
               <Brief>案例类型: {category1}</Brief>
               <Brief>案例类型: {category2}</Brief>
               <Brief>个人简介: {info}</Brief>

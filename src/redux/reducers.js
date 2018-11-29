@@ -118,7 +118,7 @@ function chat(state = initChat, action) {
           }
         }),
         //原来的数量上减去已读的
-        unReadCount: state.unReadCount - count
+        unReadCount: (state.unReadCount - count<0?0:state.unReadCount - count)
       }
     default:
       return state

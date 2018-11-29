@@ -23,7 +23,7 @@ class Laws extends Component {
     this.setState({value});
   };
   doSubmit = (value) => {
-    console.log('doSubmit',value)
+    console.log('doSubmit', value)
     this.props.queryLawsList(value)
   };
 
@@ -44,13 +44,14 @@ class Laws extends Component {
 
         <List className="my-list">
           {
-            laws.map((o,i)=>(
+            laws.map((o, i) => (
               <Item key={i}
-                multipleLine
-                onClick={() => {
-                  this.props.history.push(`/lawsdetail/${o.id}`)
-                }}
-                platform="android">
+                    arrow="horizontal"
+                    multipleLine
+                    onClick={() => {
+                      this.props.history.push(`/lawsdetail/${o.id}`)
+                    }}
+                    platform="android">
                 {o.title}
                 <Brief>{o.content}</Brief>
               </Item>

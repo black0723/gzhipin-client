@@ -13,6 +13,8 @@ import Boss from '../boss/boss'
 import Job from '../job/job'
 import Message from '../message/message'
 import Personal from '../personal/personal'
+import PersonalInfoBoss from '../personal/personalinfoboss'
+import PersonalInfoJob from '../personal/personalinfojob'
 import NotFound from '../../components/not-found/not-found'
 import NavFooter from '../../components/nav-footer/nav-footer'
 import Chat from '../chat/chat'
@@ -65,9 +67,25 @@ class Main extends Component {
     {
       path: '/personal', //
       component: Personal,
-      title: '用户中心',
+      title: '个人中心',
       icon: 'personal',
       text: '个人',
+    },
+    {
+      path: '/personalinfoboss', //
+      component: PersonalInfoBoss,
+      title: '律师个人信息管理',
+      icon: 'personal',
+      text: '我',
+      hide:true
+    },
+    {
+      path: '/personalinfojob', //
+      component: PersonalInfoJob,
+      title: '顾客个人信息管理',
+      icon: 'personal',
+      text: '我',
+      hide:true
     }
   ]
 
